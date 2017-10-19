@@ -6,19 +6,44 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NewFragment extends Fragment {
-
+    ListView list;
+    ImageView imageView;
+    String[] PlaceName = {
+            "H&M",
+            "BurgerKing",
+            "MCdonalds",
+            "IMAX"
+    } ;
+    String[] description = {
+            "Here you can buy clothes",
+            "Here you can buy food",
+            "Here you can buy humburger",
+            "Here you can see film"
+    } ;
+    Integer[] imageId = {
+            R.drawable.hmlogo,
+            R.drawable.burgking,
+            R.drawable.mcdonalds,
+            R.drawable.imax
+    };
 
     public NewFragment() {
         // Required empty public constructor
@@ -28,13 +53,21 @@ public class NewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootview = inflater.inflate(R.layout.fragment_new, container, false);
-        ImageView ImageBrand = (ImageView) rootview.findViewById(R.id.primary_action);
-        TextView MainText = (TextView) rootview.findViewById(R.id.first_text_view);
-        TextView SecondaryTest = (TextView)  rootview.findViewById(R.id.second_text_view);
-        ImageView FavouriteStar = (ImageView) rootview.findViewById(R.id.secondary_action);
+        final View rootview = inflater.inflate(R.layout.fragment_new, container, false);
+        CustomList adapter = new CustomList(getActivity(), PlaceName, description, imageId);
+        list=(ListView)rootview.findViewById(R.id.ListView);
 
+        imageView=(ImageView)rootview.findViewById(R.id.star_favourite);
+
+
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getActivity(), "You Select" +PlaceName[+ position], Toast.LENGTH_SHORT).show();
+            }
+        });
         return rootview;
     }
-
 }

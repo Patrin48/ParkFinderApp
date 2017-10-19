@@ -1,66 +1,49 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/two_line_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?selectableItemBackground"
-    android:clickable="true"
-    android:minHeight="72dp"
-    android:paddingEnd="?listPreferredItemPaddingRight"
-    android:paddingLeft="?listPreferredItemPaddingLeft"
-    android:paddingRight="?listPreferredItemPaddingRight"
-    android:paddingStart="?listPreferredItemPaddingLeft">
+    android:layout_height="match_parent"
+    tools:context="com.example.parkfinder.MySettings">
 
-    <ImageView
-        android:id="@+id/primary_action"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_shop" />
 
-    <LinearLayout
-        android:id="@+id/lines_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@+id/primary_action"
-        android:layout_toLeftOf="@+id/secondary_action"
-        android:layout_toRightOf="@+id/primary_action"
-        android:layout_toStartOf="@+id/secondary_action"
-        android:orientation="vertical"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp">
 
-        <TextView
-            android:id="@+id/first_text_view"
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="wrap_content"
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="First Line" />
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <TextView
-            android:id="@+id/second_text_view"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Second Line" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimaryDark"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ListView
+                android:id="@+id/ListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
     </LinearLayout>
 
-    <!-- Can be replaced by a widget -->
-    <ImageView
-        android:id="@+id/secondary_action"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_star_favourite"/>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
