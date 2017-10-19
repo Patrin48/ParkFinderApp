@@ -17,6 +17,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 /**
@@ -24,6 +27,7 @@ import com.google.android.gms.maps.model.CameraPosition;
  */
 public class MainFragment extends Fragment {
 
+    private Marker mLipetsk;
 
     public MainFragment() {
         // Required empty public constructor
@@ -50,13 +54,16 @@ public class MainFragment extends Fragment {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
                     if (googleMap != null) {
-
+                        LatLng Lipetsk = new LatLng(52.601818, 39.5047206);
                         googleMap.getUiSettings().setAllGesturesEnabled(true);
+                        mLipetsk = googleMap.addMarker(new MarkerOptions()
+                                .position(Lipetsk)
+                                .title("You are here!"));
+                        mLipetsk.setTag(0);
 
-
-                        //CameraPosition cameraPosition = new CameraPosition.Builder().target(marker_latlng).zoom(15.0f).build();
-                        //CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-                        //googleMap.moveCamera(cameraUpdate);
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(Lipetsk).zoom(15.0f).build();
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                        googleMap.moveCamera(cameraUpdate);
 
                     }
 
