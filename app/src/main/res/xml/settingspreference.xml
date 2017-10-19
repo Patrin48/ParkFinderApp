@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="Finding"
+        android:title="Find Car Mode" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="FindCarAut"
+        android:title="Auto Finding"
+        android:summary="Find me automatically" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="FindCarButton"
+        android:title="Finding by Request"
+        android:summary="Find me after button press"/>
+
+    <PreferenceCategory
+        android:key="MyPos"
+        android:title="My position"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="FollowPos"
+        android:title="Follow me"
+        android:summary="Follow my current position"/>
+
+    <PreferenceCategory
+        android:key="Notif"
+        android:title="Notifications"/>
+    <SwitchPreference
+        android:key="notif2"
+        android:summary="Sales around me"
+        android:title="Sales"/>
+
+    <PreferenceCategory
+        android:key="BackRun"
+        android:title="System Relationship"/>
+    <SwitchPreference
+        android:key="back_run_mode"
+        android:summary="Background work by Default"
+        android:title="Background mode"/>
+</PreferenceScreen>

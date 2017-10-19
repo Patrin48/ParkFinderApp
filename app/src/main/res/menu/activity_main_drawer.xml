@@ -15,10 +15,6 @@
             android:id="@+id/nav_findmycar"
             android:icon="@drawable/ic_location_searching"
             android:title="Find My Car" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
     </group>
 
     <item android:title="Communicate">
@@ -27,10 +23,10 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
-            <item
+            <!--<item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Send" /> -->
         </menu>
     </item>
 

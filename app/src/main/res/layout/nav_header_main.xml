@@ -12,14 +12,14 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/profile"
-        app:border_color="#FF000000"
+        app:border_color="@color/colorTeal"
         android:layout_marginLeft="24dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginStart="24dp" />
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -44,6 +44,6 @@
         android:textColor="#fff"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        android:layout_alignStart="@+id/username" /> -->
 
 </RelativeLayout>
