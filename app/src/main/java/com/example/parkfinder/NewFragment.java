@@ -35,8 +35,8 @@ public class NewFragment extends Fragment {
     String[] description = {
             "Here you can buy clothes",
             "Here you can buy food",
-            "Here you can buy humburger",
-            "Here you can see film"
+            "Here you can buy humburgers",
+            "Here you can see IMAX films"
     } ;
     Integer[] imageId = {
             R.drawable.hmlogo,
@@ -59,13 +59,13 @@ public class NewFragment extends Fragment {
 
         imageView=(ImageView)rootview.findViewById(R.id.star_favourite);
 
-
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getActivity(), "You Select" +PlaceName[+ position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "You Select " +PlaceName[+ position], Toast.LENGTH_SHORT).show();
+
             }
         });
         return rootview;
