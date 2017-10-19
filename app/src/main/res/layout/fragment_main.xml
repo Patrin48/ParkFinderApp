@@ -6,17 +6,7 @@
     tools:context="com.example.parkfinder.MainFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Map will be here..."
-        android:padding="8dp"
-        android:textColor="#fff"
-        android:background="@color/colorPrimary"
-        android:textSize="28sp"
-        android:id="@+id/main_button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,11 +24,11 @@
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
-            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
+            android:layout_height="501dp"
+            android:layout_weight="2"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
