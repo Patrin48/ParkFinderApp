@@ -11,21 +11,16 @@
         android:key="FindCarAut"
         android:title="Auto Finding"
         android:summary="Find me automatically" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="FindCarButton"
-        android:title="Finding by Request"
-        android:summary="Find me after button press"/>
 
     <PreferenceCategory
-        android:key="MyPos"
-        android:title="My position"/>
+        android:key="Map"
+        android:title="Map"/>
 
     <SwitchPreference
         android:defaultValue="false"
         android:key="FollowPos"
-        android:title="Follow me"
-        android:summary="Follow my current position"/>
+        android:title="Auto Following"
+        android:summary="Follow my current position on map"/>
 
     <PreferenceCategory
         android:key="Notif"
@@ -35,11 +30,4 @@
         android:summary="Sales around me"
         android:title="Sales"/>
 
-    <PreferenceCategory
-        android:key="BackRun"
-        android:title="System Relationship"/>
-    <SwitchPreference
-        android:key="back_run_mode"
-        android:summary="Background work by Default"
-        android:title="Background mode"/>
 </PreferenceScreen>
