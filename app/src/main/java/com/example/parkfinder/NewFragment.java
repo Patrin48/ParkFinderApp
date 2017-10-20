@@ -1,6 +1,7 @@
 package com.example.parkfinder;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -64,8 +65,8 @@ public class NewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getActivity(), "You Select " +PlaceName[+ position], Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getActivity().getApplication(), TestActivity.class);
+                startActivity(intent);
             }
         });
         return rootview;

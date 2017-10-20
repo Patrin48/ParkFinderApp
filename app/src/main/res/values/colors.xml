@@ -8,7 +8,7 @@
     <color name="colorSecondaryText">#000000</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorDivider">#1e9316</color>
+    <color name="colorDivider">#010101</color>
     <color name="colorTeal">#009688</color>
     <color name="colorControlNormal">#1e9316</color>
 </resources>

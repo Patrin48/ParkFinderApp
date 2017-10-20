@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.parkfinder.TestActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/burgking"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="13dp"
+        android:background="#00000000"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:inputType="textMultiLine"
+        android:focusable="false"
+        android:longClickable="false"
+        android:singleLine="true"
+        android:text="Только сегодня в BurgerKing. Закажи 5 наггетсов бесплатно. Или налей напиток и получи второй в подарок. Для этого назови на кассе код:"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:inputType="textPersonName"
+        android:text="584567"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:focusable="false"
+        android:longClickable="false"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="#00000000"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/tv"
+        android:layout_marginBottom="19dp"
+        app:layout_constraintHorizontal_bias="0.555" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:text="Осталось"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="13pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

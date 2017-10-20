@@ -15,16 +15,16 @@
         android:layout_width="68dp"
         android:layout_height="67dp"
         android:layout_marginBottom="49dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="0dp"
         android:src="@drawable/ic_add_only"
-        app:backgroundTint="@color/colorDivider"
+        app:backgroundTint="@color/colorControlNormal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         tools:layout_conversion_absoluteHeight="40dp"
         tools:layout_conversion_absoluteWidth="40dp"
         tools:layout_conversion_absoluteX="320dp"
-        tools:layout_conversion_absoluteY="471dp"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="16dp" />
+        tools:layout_conversion_absoluteY="471dp" />
 
     <TextView
         android:id="@+id/textView"
