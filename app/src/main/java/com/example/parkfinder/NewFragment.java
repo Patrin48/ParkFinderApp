@@ -45,6 +45,18 @@ public class NewFragment extends Fragment {
             R.drawable.mcdonalds,
             R.drawable.imax
     };
+    String[] SaleDescription = {
+            "При заказе 3 пар штанов - Скидка на шорты 30%. Просто назовите код с экрана!",
+            "При покупке 2 гамбургеров ItalianMacho - соус бесплатно. Просто назовите код с экрана!",
+            "При покупке большой порции картошки фри - кофе со скидкой 20%. Просто назовите код с экрана!",
+            "При заказе билета онлайн и вводе данного кода - скидка 10% на любой фильм в зале IMAX 3D. Просто введите код с экрана в форму на сайте!"
+    } ;
+    String[] SecretCode = {
+            "4j5nb",
+            "67b3h",
+            "8fghu",
+            "5hb34"
+    } ;
 
     public NewFragment() {
         // Required empty public constructor
@@ -65,7 +77,11 @@ public class NewFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                //Toast.makeText(getActivity(), "You Clicked at " +SaleDescription[position], Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity().getApplication(), TestActivity.class);
+                intent.putExtra("logotype", imageId[position]);
+                intent.putExtra("saledescript", SaleDescription[position]);
+                intent.putExtra("mycode", SecretCode[position]);
                 startActivity(intent);
             }
         });
