@@ -11,4 +11,6 @@
     <color name="colorDivider">#010101</color>
     <color name="colorTeal">#009688</color>
     <color name="colorControlNormal">#1e9316</color>
+    <color name="colorFAB1">#2196F3</color>
+    <color name="colorFAB2">#E040FB</color>
 </resources>

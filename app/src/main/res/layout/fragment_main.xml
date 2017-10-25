@@ -11,47 +11,28 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="68dp"
-        android:layout_height="67dp"
-        android:layout_marginBottom="49dp"
+        android:id="@+id/floatingActionButton"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="0dp"
-        android:src="@drawable/ic_add_only"
-        app:backgroundTint="@color/colorControlNormal"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_conversion_absoluteHeight="40dp"
-        tools:layout_conversion_absoluteWidth="40dp"
-        tools:layout_conversion_absoluteX="320dp"
-        tools:layout_conversion_absoluteY="471dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="61dp"
-        android:layout_marginLeft="16dp"
-        android:fontFamily="casual"
-        android:text="Your car's parked here!"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
+        app:rippleColor="@color/colorAccent"
+        app:srcCompat="@drawable/ic_location" />
     <FrameLayout
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="374dp"
+        android:layout_height="509dp"
+        android:layout_marginTop="-76dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
-
-
 </android.support.constraint.ConstraintLayout>

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -30,7 +31,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MainFragment extends Fragment {
 
     private SupportMapFragment mSupportMapFragment;
-    TextView tv;
+    FloatingActionButton fab1;
+    FloatingActionButton fab2;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -40,7 +42,6 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_main, container, false);
-        tv = (TextView) v.findViewById(R.id.textView);
         mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mSupportMapFragment == null) {
             FragmentManager fragmentManager = getFragmentManager();
@@ -71,11 +72,13 @@ public class MainFragment extends Fragment {
 
 
         }
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.floatingActionButton);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-        tv.setVisibility(View.VISIBLE);
+
+
             }
         });
         return v;

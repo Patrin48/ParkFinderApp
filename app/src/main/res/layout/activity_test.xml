@@ -32,7 +32,7 @@
         android:focusable="false"
         android:longClickable="false"
         android:singleLine="true"
-        android:text="Только сегодня в BurgerKing. Закажи 5 наггетсов бесплатно. Или налей напиток и получи второй в подарок. Для этого назови на кассе код:"
+        android:text="Только сегодня в BurgerKing. Закажи 5 наггетсов бесплатно, или налей напиток и получи второй в подарок. Для этого назови на кассе код:"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/editText2"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -75,7 +75,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="13pt"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
