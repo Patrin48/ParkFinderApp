@@ -2,10 +2,16 @@ package com.example.parkfinder;
 
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -70,7 +76,7 @@ public class NewFragment extends Fragment {
         CustomList adapter = new CustomList(getActivity(), PlaceName, description, imageId);
         list=(ListView)rootview.findViewById(R.id.ListView);
 
-        imageView=(ImageView)rootview.findViewById(R.id.star_favourite);
+        //imageView=(ImageView)rootview.findViewById(R.id.star_favourite);
 
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,6 +91,17 @@ public class NewFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                    Toast.makeText(getActivity(), PlaceName[position] + " in favourite", Toast.LENGTH_SHORT).show();
+                    view.findViewById(R.id.star_favourite).setBackgroundResource(R.drawable.favourite_green);
+                    return true;
+            }
+        });
+
         return rootview;
     }
 }
