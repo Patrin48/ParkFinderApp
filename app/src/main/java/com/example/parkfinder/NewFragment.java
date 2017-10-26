@@ -32,7 +32,8 @@ import java.util.ArrayList;
  */
 public class NewFragment extends Fragment {
     ListView list;
-    public boolean isBackGroundChanged = false;
+    //public boolean isBackGroundChanged = false;
+    public int pos1=0;
     ImageView imageView;
     String[] PlaceName = {
             "H&M",
@@ -63,6 +64,13 @@ public class NewFragment extends Fragment {
             "67b3h",
             "8fghu",
             "5hb34"
+    } ;
+
+   public boolean[] FavouriteBool = {
+            false,
+            false,
+            false,
+            false
     } ;
     public NewFragment() {
         // Required empty public constructor
@@ -96,15 +104,15 @@ public class NewFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
-                if (isBackGroundChanged == false) {
+                if (FavouriteBool[position] == false) {
                     Toast.makeText(getActivity(), PlaceName[position] + " in favourite", Toast.LENGTH_SHORT).show();
                     view.findViewById(R.id.star_favourite).setBackgroundResource(R.drawable.favourite_green);
-                    isBackGroundChanged = true;
+                    FavouriteBool[position] = true;
                 }
-                else if (isBackGroundChanged == true){
+                else if (FavouriteBool[position] == true){
                     Toast.makeText(getActivity(), PlaceName[position] + " removed from favourite", Toast.LENGTH_SHORT).show();
                     view.findViewById(R.id.star_favourite).setBackgroundResource(0);
-                    isBackGroundChanged = false;
+                    FavouriteBool[position] = false;
                 }
                     return true;
             }
