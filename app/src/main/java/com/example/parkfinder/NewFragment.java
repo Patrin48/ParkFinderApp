@@ -32,6 +32,7 @@ import java.util.ArrayList;
  */
 public class NewFragment extends Fragment {
     ListView list;
+    public boolean isBackGroundChanged = false;
     ImageView imageView;
     String[] PlaceName = {
             "H&M",
@@ -63,7 +64,6 @@ public class NewFragment extends Fragment {
             "8fghu",
             "5hb34"
     } ;
-
     public NewFragment() {
         // Required empty public constructor
     }
@@ -96,12 +96,19 @@ public class NewFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
+                if (isBackGroundChanged == false) {
                     Toast.makeText(getActivity(), PlaceName[position] + " in favourite", Toast.LENGTH_SHORT).show();
                     view.findViewById(R.id.star_favourite).setBackgroundResource(R.drawable.favourite_green);
+                    isBackGroundChanged = true;
+                }
+                else if (isBackGroundChanged == true){
+                    Toast.makeText(getActivity(), PlaceName[position] + " removed from favourite", Toast.LENGTH_SHORT).show();
+                    view.findViewById(R.id.star_favourite).setBackgroundResource(0);
+                    isBackGroundChanged = false;
+                }
                     return true;
             }
         });
-
         return rootview;
     }
 }
