@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +35,7 @@ public class MainFragment extends Fragment {
     private SupportMapFragment mSupportMapFragment;
     FloatingActionButton fab1;
     FloatingActionButton fab2;
+    FABToolbarLayout fabToolbar;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -42,6 +45,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_main, container, false);
+        fabToolbar = ((FABToolbarLayout) v.findViewById(R.id.fabtoolbar));
         mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mSupportMapFragment == null) {
             FragmentManager fragmentManager = getFragmentManager();
@@ -72,13 +76,43 @@ public class MainFragment extends Fragment {
 
 
         }
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.floatingActionButton);
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabtoolbar_fab);
+        ImageView im1 = (ImageView) v.findViewById(R.id.one);
+        ImageView im2 = (ImageView) v.findViewById(R.id.two);
+        ImageView im3 = (ImageView) v.findViewById(R.id.three);
 
+
+
+
+
+        im1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fabToolbar.hide();
+            }
+        });
+        im2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "You're near LSTU Universuty", Snackbar.LENGTH_SHORT)
+                        .show();
+                fabToolbar.hide();
+            }
+
+        });
+        im3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "You've saved car's location", Snackbar.LENGTH_SHORT)
+                        .show();
+                fabToolbar.hide();
+            }
+
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+        fabToolbar.show();
             }
         });
         return v;

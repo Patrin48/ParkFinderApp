@@ -21,7 +21,7 @@ public class MySettings extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabtoolbar_fab);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

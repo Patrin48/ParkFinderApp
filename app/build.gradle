@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.example.parkfinder"
         minSdkVersion 23
@@ -26,6 +26,7 @@ dependencies {
     })
     compile 'com.squareup.retrofit:retrofit:1.7.1'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    compile 'com.github.fafaldo:fab-toolbar:1.2.0'
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:preference-v7:25.3.1'

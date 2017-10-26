@@ -32,7 +32,7 @@
         android:focusable="false"
         android:longClickable="false"
         android:singleLine="true"
-        android:text="Только сегодня в BurgerKing. Закажи 5 наггетсов бесплатно, или налей напиток и получи второй в подарок. Для этого назови на кассе код:"
+        android:text="@string/burgerking_5"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/editText2"
         app:layout_constraintLeft_toLeftOf="parent"

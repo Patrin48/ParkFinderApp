@@ -114,11 +114,12 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             toolbar.setTitle("Find My Car");
         } else if (id == R.id.nav_share) {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "I'm near LSTU university.");
-            sendIntent.setType("text/plain");
-            startActivity(sendIntent);
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBodyText = "I'm here!";
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+            startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
         }
         //else if (id == R.id.nav_send) {
 
