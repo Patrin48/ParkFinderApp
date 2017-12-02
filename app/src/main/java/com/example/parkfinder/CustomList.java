@@ -5,6 +5,7 @@ package com.example.parkfinder;
  */
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class CustomList extends ArrayAdapter<String>{
 
     private final Activity context;
     private final String[] PlaceName;
     private final String[] description;
-    private final Integer[] imageId;
+    private final String[] imageId;
     public CustomList(Activity context,
-                      String[] PlaceName, String[] description, Integer[] imageId) {
+                      String[] PlaceName, String[] description, String[] imageId) {
         super(context, R.layout.row, PlaceName);
         this.context = context;
         this.PlaceName = PlaceName;
@@ -37,7 +45,9 @@ public class CustomList extends ArrayAdapter<String>{
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageLogo);
         txtTitle.setText(PlaceName[position]);
         txtTitle1.setText(description[position]);
-        imageView.setImageResource(imageId[position]);
+
+        Picasso.with(context).load(imageId[position]).into(imageView);
+        //imageView.setImageResource(imageId[position]);
         return rowView;
     }
 }
