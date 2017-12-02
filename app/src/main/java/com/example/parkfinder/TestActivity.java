@@ -10,8 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class TestActivity extends AppCompatActivity {
+import com.squareup.picasso.Picasso;
 
+public class TestActivity extends AppCompatActivity {
+    TestActivity context;
     private TextView mTimer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +25,14 @@ public class TestActivity extends AppCompatActivity {
         EditText SecretCode = (EditText) findViewById(R.id.editText2);
 
         Bundle b = getIntent().getExtras();
-        int LogoImage = b.getInt("logotype");
+        String LogoImage = b.getString("logotype");
         String SaleText = b.getString("saledescript");
         String MyOwnCode = b.getString("mycode");
         //Set Image from Java Code
-        Logo.setImageDrawable(ContextCompat.getDrawable(this, LogoImage));
-        Logo.getLayoutParams().height=1000;
-        Logo.getLayoutParams().width=1000;
+        //Logo.setImageDrawable(ContextCompat.getDrawable(this, LogoImage));
+        Picasso.with(context).load(LogoImage).into(Logo);
+        Logo.getLayoutParams().height=800;
+        Logo.getLayoutParams().width=800;
         SaleDescription.setText(SaleText);
         SecretCode.setText(MyOwnCode);
         new CountDownTimer(10000, 1000) {
