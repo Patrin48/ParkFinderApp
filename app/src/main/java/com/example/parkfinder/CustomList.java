@@ -47,7 +47,6 @@ public class CustomList extends ArrayAdapter<String>{
         txtTitle1.setText(description[position]);
 
         Picasso.with(context).load(imageId[position]).into(imageView);
-        //imageView.setImageResource(imageId[position]);
         return rowView;
     }
 }
