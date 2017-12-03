@@ -121,9 +121,14 @@ public class MainActivity extends AppCompatActivity
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
             startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
         }
-        //else if (id == R.id.nav_send) {
-
-        //}
+        else if (id == R.id.nav_login) {
+            LoginFragment fragment = new LoginFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            toolbar.setTitle("Login");
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
