@@ -45,7 +45,7 @@ import java.net.URL;
  */
 
 public class MainFragment extends Fragment {
-
+    int count = 0;
     private SupportMapFragment mSupportMapFragment;
     FloatingActionButton fab1;
     FloatingActionButton fab2;
@@ -53,12 +53,59 @@ public class MainFragment extends Fragment {
     public MainFragment() {
         // Required empty public constructor
     }
+    class Getcount extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Loading Data");
+            progressDialog.show();
+        }
 
+        @Override
+        protected String doInBackground(String... params) {
+            StringBuilder result = new StringBuilder();
+            try {
+                URL url = new URL(params[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setReadTimeout(10000);
+                urlConnection.setConnectTimeout(10000);
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty("Content-Type","application/json");
+                urlConnection.connect();
+                InputStream inputStream = urlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while((line = bufferedReader.readLine()) != null){
+                    result.append(line).append("\n");
+                }
+            } catch (IOException e) {
+                return "Network Error";
+            }
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            try {
+                JSONArray jsonarray = new JSONArray(result);
+                count = jsonarray.length();
+                Global.Count_Of_ListItems = count;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (progressDialog != null){
+                progressDialog.dismiss();
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        new Getcount().execute("https://parkfinderapp.herokuapp.com/PlacesList");
         View v =  inflater.inflate(R.layout.fragment_main, container, false);
         fabToolbar = ((FABToolbarLayout) v.findViewById(R.id.fabtoolbar));
         mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);

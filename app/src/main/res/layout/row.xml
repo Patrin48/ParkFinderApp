@@ -66,6 +66,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_star_favourite"/>
+        android:scaleType="centerInside" />
 </RelativeLayout>
+
+    <!--android:src="@drawable/ic_star_favourite"-->

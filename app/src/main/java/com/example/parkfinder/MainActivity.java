@@ -1,6 +1,8 @@
 package com.example.parkfinder;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,11 +21,25 @@ import android.view.WindowManager;
 
 import com.codevscolor.materialpreference.activity.MaterialPreferenceActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    MainActivity context;
 
     NavigationView navigationView  = null;
     Toolbar toolbar = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +54,14 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent));
-       // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-       // fab.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-       //     public void onClick(View view) {
-       //         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-       //                 .setAction("Action", null).show();
-      //     }
-      //  });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -80,6 +86,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Intent in = new Intent(getApplicationContext(), MySettings.class);
+            startActivity(in);
+        } else if (id == R.id.action_profile) {
+            Intent in = new Intent(getApplicationContext(), ProfileActivity.class);
             startActivity(in);
         }
         return true;

@@ -85,6 +85,11 @@
     <string name="title_activity_my_settings">MySettings</string>
     <string name="title_activity_maps">Map</string>
     <string name="burgerking_5">Только сегодня в BurgerKing. Закажи 5 наггетсов бесплатно, или налей напиток и получи второй в подарок. Для этого назови на кассе код:</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
 
 
 </resources>

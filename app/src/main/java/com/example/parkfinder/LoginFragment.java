@@ -42,6 +42,7 @@ import java.net.URL;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
+
     EditText Username;
     EditText password;
     String name;
@@ -79,12 +80,16 @@ public class LoginFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
             try {
                 int code = urlConnection.getResponseCode();
                 if (code == 200){
                 JSONObject jObject = new JSONObject(result);
-                String login = jObject.getString("login");
+                String login = jObject.getString("name");
+                Global.login_info = result;
                 Toast.makeText(getActivity(),"You logged in as " + login, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
                 }
                 else {
                     Toast.makeText(getActivity(),"Invalid Username or Password!", Toast.LENGTH_LONG).show();
@@ -161,6 +166,7 @@ public class LoginFragment extends Fragment {
                 name = Username.getText().toString();
                 pass = password.getText().toString();
                 new PostLoginTask().execute("https://parkfinderapp.herokuapp.com/login");
+
             }
         });
 
@@ -177,3 +183,5 @@ public class LoginFragment extends Fragment {
         return rootview;
     }
 }
+
+
