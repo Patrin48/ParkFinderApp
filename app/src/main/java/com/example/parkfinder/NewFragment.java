@@ -52,6 +52,7 @@ import java.util.List;
  */
 public class NewFragment extends Fragment {
     private CustomList Myadapter;
+    boolean x = false;
     Integer count = Global.Count_Of_ListItems;
     class GetDataTask extends AsyncTask<String, Void, String>{
         ProgressDialog progressDialog;
@@ -214,40 +215,50 @@ public class NewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        new GetDataTask().execute("https://parkfinderapp.herokuapp.com/PlacesList");
-        final View rootview = inflater.inflate(R.layout.fragment_new, container, false);
-        Myadapter = new CustomList(getActivity(), PlaceName, description, imageId);
-        list=(ListView)rootview.findViewById(R.id.ListView);
-        list.setAdapter(Myadapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Intent intent = new Intent(getActivity().getApplication(), TestActivity.class);
-                intent.putExtra("logotype", imageId[position]);
-                intent.putExtra("saledescript", SaleDescription[position]);
-                intent.putExtra("mycode", SecretCode[position]);
-                startActivity(intent);
-            }
-        });
-
-        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                           int position, long id) {
-                String Name = null;
-                JSONObject jObject = null;
-                try {
-                    jObject = new JSONObject(Global.login_info);
-                    Name = jObject.getString("name");
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        if (Global.login_info == null){
+            Toast.makeText(getActivity(), "Access denied without login!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            return null;
+        } else {
+            new GetDataTask().execute("https://parkfinderapp.herokuapp.com/PlacesList");
+            final View rootview = inflater.inflate(R.layout.fragment_new, container, false);
+            Myadapter = new CustomList(getActivity(), PlaceName, description, imageId);
+            list = (ListView) rootview.findViewById(R.id.ListView);
+            list.setAdapter(Myadapter);
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    Intent intent = new Intent(getActivity().getApplication(), TestActivity.class);
+                    intent.putExtra("logotype", imageId[position]);
+                    intent.putExtra("saledescript", SaleDescription[position]);
+                    intent.putExtra("mycode", SecretCode[position]);
+                    startActivity(intent);
                 }
-                new AddToFavourites().execute("https://parkfinderapp.herokuapp.com/addToFavourite/" + PlaceName[position] + "/" + Name);
-                Toast.makeText(getActivity(), PlaceName[position] + " in favourite", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-        return rootview;
+            });
+
+            list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                               int position, long id) {
+                    String Name = null;
+                    JSONObject jObject = null;
+                    try {
+                        jObject = new JSONObject(Global.login_info);
+                        Name = jObject.getString("name");
+                        if (Name != null) {
+                            x = true;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    new AddToFavourites().execute("https://parkfinderapp.herokuapp.com/addToFavourite/" + PlaceName[position] + "/" + Name);
+                    Toast.makeText(getActivity(), PlaceName[position] + " in favourite", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
+            return rootview;
+        }
     }
 }

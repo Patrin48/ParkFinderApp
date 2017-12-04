@@ -37,6 +37,7 @@ import java.net.URL;
 public class favourites_fragment extends Fragment{
     private CustomList Myadapter;
     int count = 10;
+    String Name = null;
 
     class GetFavourite extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
@@ -190,8 +191,14 @@ public class favourites_fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //View rootView = inflater.inflate(R.layout.fragment_favourites, container, false);
-
-        new GetFavourite().execute("https://parkfinderapp.herokuapp.com/GetFavourites/Alex");
+        JSONObject jObject = null;
+        try {
+            jObject = new JSONObject(Global.login_info);
+            Name = jObject.getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new GetFavourite().execute("https://parkfinderapp.herokuapp.com/GetFavourites/" + Name);
         final View rootview = inflater.inflate(R.layout.fragment_favourites, container, false);
         Myadapter = new CustomList(getActivity(), PlaceName, description, imageId);
         list=(ListView)rootview.findViewById(R.id.ListView);
@@ -212,14 +219,6 @@ public class favourites_fragment extends Fragment{
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
-                String Name = null;
-                JSONObject jObject = null;
-                try {
-                    jObject = new JSONObject(Global.login_info);
-                    Name = jObject.getString("name");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 new DeleteFromFavourites().execute("https://parkfinderapp.herokuapp.com/deleteFromFavourite/" + PlaceName[position] + "/" + Name);
                 Toast.makeText(getActivity(), PlaceName[position] + " removed from favourite", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), MainActivity.class);

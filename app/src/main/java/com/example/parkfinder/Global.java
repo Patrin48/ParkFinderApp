@@ -5,6 +5,6 @@ package com.example.parkfinder;
  */
 
 public class Global {
-    public static String login_info;
+    public static String login_info = null;
     public static Integer Count_Of_ListItems;
 }
