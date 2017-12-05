@@ -6,9 +6,4 @@
         android:orderInCategory="100"
         android:title="Settings"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_profile"
-        android:orderInCategory="100"
-        android:title="Profile"
-        app:showAsAction="never" />
 </menu>

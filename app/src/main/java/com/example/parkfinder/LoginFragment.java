@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -42,13 +43,16 @@ import java.net.URL;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
-
+    View rootview;
     EditText Username;
     EditText password;
     String name;
     String pass;
     TextView link_signup;
     AppCompatButton loginButton;
+    AppCompatButton ProfileButton;
+
+    boolean isAuth;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -84,6 +88,7 @@ public class LoginFragment extends Fragment {
             try {
                 int code = urlConnection.getResponseCode();
                 if (code == 200){
+                    isAuth = true;
                 JSONObject jObject = new JSONObject(result);
                 String login = jObject.getString("name");
                 Global.login_info = result;
@@ -153,20 +158,28 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if (Global.login_info == null) {isAuth = false;} else {isAuth = true;}
         final View rootview = inflater.inflate(R.layout.fragment_login, container, false);
         Username = (EditText)rootview.findViewById(R.id.input_username);
         password = (EditText)rootview.findViewById(R.id.input_password);
-
         link_signup = (TextView)rootview.findViewById(R.id.link_signup);
         loginButton = (AppCompatButton)rootview.findViewById(R.id.btn_login);
-
+        ProfileButton = (AppCompatButton)rootview.findViewById(R.id.btn_profile);
+        ProfileButton.setEnabled(isAuth);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = Username.getText().toString();
                 pass = password.getText().toString();
                 new PostLoginTask().execute("https://parkfinderapp.herokuapp.com/login");
+            }
+        });
 
+        ProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(intent);
             }
         });
 

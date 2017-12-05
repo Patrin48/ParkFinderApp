@@ -87,9 +87,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             Intent in = new Intent(getApplicationContext(), MySettings.class);
             startActivity(in);
-        } else if (id == R.id.action_profile) {
-            Intent in = new Intent(getApplicationContext(), ProfileActivity.class);
-            startActivity(in);
         }
         return true;
     }
