@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     private FusedLocationProviderClient mFusedLocationClient;
     NavigationView navigationView = null;
     Toolbar toolbar = null;
+    LocationManager manager;
+    Boolean check = false;
 
 
     @Override
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
              requestPermissions(
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -165,11 +167,15 @@ public class MainActivity extends AppCompatActivity
     private LocationListener listener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
+            if (check==false) {
+                Toast.makeText(getApplicationContext(), "GPS connection established!", Toast.LENGTH_SHORT).show();
+                manager.removeUpdates(listener);
+                manager = null;
+                check = true;
+            }
             Global.Latitude = location.getLatitude();
             Global.Longitude = location.getLongitude();
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "We got your coordinates!", Toast.LENGTH_SHORT);
-            toast.show();
+            check = true;
         }
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {

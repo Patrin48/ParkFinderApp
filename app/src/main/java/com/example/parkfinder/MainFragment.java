@@ -1,6 +1,7 @@
 package com.example.parkfinder;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -50,6 +51,9 @@ public class MainFragment extends Fragment {
     FloatingActionButton fab1;
     FloatingActionButton fab2;
     FABToolbarLayout fabToolbar;
+    ImageView im1;
+    ImageView im2;
+    ImageView im3;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -126,10 +130,10 @@ public class MainFragment extends Fragment {
 
                         googleMap.getUiSettings().setAllGesturesEnabled(true);
                         googleMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(Global.Latitude, Global.Latitude))
+                                .position(new LatLng(Global.Latitude, Global.Longitude))
                                 .title("Your car's here!"))
                         .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin));
-                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Latitude)).zoom(14.0f).build();
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Longitude)).zoom(14.0f).build();
                         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
                         googleMap.moveCamera(cameraUpdate);
 
@@ -138,12 +142,12 @@ public class MainFragment extends Fragment {
                 }
             });
 
-
         }
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabtoolbar_fab);
-        ImageView im1 = (ImageView) v.findViewById(R.id.one);
-        ImageView im2 = (ImageView) v.findViewById(R.id.two);
-        ImageView im3 = (ImageView) v.findViewById(R.id.three);
+
+        im1 = (ImageView) v.findViewById(R.id.one);
+        im2 = (ImageView) v.findViewById(R.id.two);
+        im3 = (ImageView) v.findViewById(R.id.three);
 
         im1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,18 +158,19 @@ public class MainFragment extends Fragment {
         im2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "You're near LSTU Universuty", Snackbar.LENGTH_SHORT)
-                        .show();
-                fabToolbar.hide();
+
+                if (Global.Longitude==0.0 || Global.Latitude==0.0) {
+                    Snackbar.make(v, "We haven't got your coordinates yet :(", Snackbar.LENGTH_SHORT)
+                            .show();
+                    fabToolbar.hide();
+                }
             }
 
         });
         im3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Location saved!", Snackbar.LENGTH_SHORT)
-                        .show();
-                fabToolbar.hide();
+                Toast.makeText(getActivity().getApplicationContext(), "You are here!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
