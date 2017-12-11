@@ -7,4 +7,6 @@ package com.example.parkfinder;
 public class Global {
     public static String login_info = null;
     public static Integer Count_Of_ListItems;
+    public static double Longitude;
+    public static double Latitude;
 }

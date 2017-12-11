@@ -61,6 +61,7 @@ public class MainFragment extends Fragment {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setMessage("Loading Data");
             progressDialog.show();
+
         }
 
         @Override
@@ -125,10 +126,10 @@ public class MainFragment extends Fragment {
 
                         googleMap.getUiSettings().setAllGesturesEnabled(true);
                         googleMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(52.601818, 39.5047206))
+                                .position(new LatLng(Global.Latitude, Global.Latitude))
                                 .title("Your car's here!"))
                         .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin));
-                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(52.601818, 39.5047206)).zoom(14.0f).build();
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Latitude)).zoom(14.0f).build();
                         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
                         googleMap.moveCamera(cameraUpdate);
 
@@ -162,9 +163,11 @@ public class MainFragment extends Fragment {
         im3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "You've saved car's location", Snackbar.LENGTH_SHORT)
+                Snackbar.make(v, "Location saved!", Snackbar.LENGTH_SHORT)
                         .show();
                 fabToolbar.hide();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
 
         });
