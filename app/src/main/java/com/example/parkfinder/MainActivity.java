@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,6 +16,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -48,6 +50,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import android.preference.PreferenceActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar = null;
     LocationManager manager;
     Boolean check = false;
-
+    Boolean auto_finding_check = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        auto_finding_check = sharedPref.getBoolean("FindCarAut", false);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -130,24 +135,27 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             toolbar.setTitle("Parking here");
         } else if (id == R.id.nav_myplaces) {
-            NewFragment fragment = new NewFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            toolbar.setTitle("My Places");
+            if (Global.login_info==null)
+            {
+                Toast.makeText(getApplicationContext(), "Please, login for Favourite Places", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                NewFragment fragment = new NewFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction =
+                        getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.commit();
+                toolbar.setTitle("My Places");
+            }
         } else if (id == R.id.nav_findmycar) {
-            BuildWay fragment = new BuildWay();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            toolbar.setTitle("Find My Car");
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(intent);
+                toolbar.setTitle("Find My Car");
         } else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
-            String shareBodyText = "I'm here!";
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
+            String shareBodyText = "I'm here, my friend!" + Global.Latitude + " "+ Global.Longitude;
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Position");
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
             startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
         }
@@ -167,15 +175,18 @@ public class MainActivity extends AppCompatActivity
     private LocationListener listener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            if (check==false) {
+            if (Global.check==false) {
                 Toast.makeText(getApplicationContext(), "GPS connection established!", Toast.LENGTH_SHORT).show();
                 manager.removeUpdates(listener);
                 manager = null;
-                check = true;
+                Global.check = true;
+                Global.Latitude = location.getLatitude();
+                Global.Longitude = location.getLongitude();
+                if (auto_finding_check) {
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+                }
             }
-            Global.Latitude = location.getLatitude();
-            Global.Longitude = location.getLongitude();
-            check = true;
         }
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {

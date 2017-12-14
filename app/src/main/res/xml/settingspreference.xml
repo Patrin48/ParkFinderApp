@@ -13,16 +13,6 @@
         android:summary="Find me automatically" />
 
     <PreferenceCategory
-        android:key="Map"
-        android:title="Map"/>
-
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="FollowPos"
-        android:title="Auto Following"
-        android:summary="Follow my current position on map"/>
-
-    <PreferenceCategory
         android:key="Notif"
         android:title="Notifications"/>
     <SwitchPreference

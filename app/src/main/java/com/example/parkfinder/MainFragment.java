@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class MainFragment extends Fragment {
     FABToolbarLayout fabToolbar;
     ImageView im1;
     ImageView im2;
+    int count_places=0 ;
     ImageView im3;
     public MainFragment() {
         // Required empty public constructor
@@ -97,7 +99,6 @@ public class MainFragment extends Fragment {
             try {
                 JSONArray jsonarray = new JSONArray(result);
                 count = jsonarray.length();
-                Global.Count_Of_ListItems = count;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -106,11 +107,66 @@ public class MainFragment extends Fragment {
             }
         }
     }
+    class GetLocations extends AsyncTask<String, Void, String>{
+        ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Loading Locations...");
+            progressDialog.show();
+        }
 
+        @Override
+        protected String doInBackground(String... params) {
+            StringBuilder result = new StringBuilder();
+            try {
+                URL url = new URL(params[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setReadTimeout(10000);
+                urlConnection.setConnectTimeout(10000);
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty("Content-Type","application/json");
+                urlConnection.connect();
+                InputStream inputStream = urlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while((line = bufferedReader.readLine()) != null){
+                    result.append(line).append("\n");
+                }
+            } catch (IOException e) {
+                return "Network Error";
+            }
+            return result.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            String out="";
+            try {
+                JSONArray jsonarray = new JSONArray(result);
+                count_places = jsonarray.length();
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    Global.placesName[i] = jsonobject.getString("PlaceName");
+                    Global.width_places[i] = jsonobject.getString("Width");
+                    Global.length_places[i] = jsonobject.getString("Lenght");
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (progressDialog != null){
+                progressDialog.dismiss();
+            }
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         new Getcount().execute("https://parkfinderapp.herokuapp.com/PlacesList");
+        new GetLocations().execute("https://parkfinderapp.herokuapp.com/Location");
         View v =  inflater.inflate(R.layout.fragment_main, container, false);
         fabToolbar = ((FABToolbarLayout) v.findViewById(R.id.fabtoolbar));
         mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -133,6 +189,11 @@ public class MainFragment extends Fragment {
                                 .position(new LatLng(Global.Latitude, Global.Longitude))
                                 .title("Your car's here!"))
                         .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin));
+                        for (int i=0; i<count_places;i++) {
+                                    LatLng place = new LatLng(Double.valueOf(Global.width_places[i]), Double.valueOf(Global.length_places[i]));
+                                googleMap.addMarker(new MarkerOptions().position(place).icon(
+                                    BitmapDescriptorFactory.defaultMarker()));
+                    }
                         CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Longitude)).zoom(14.0f).build();
                         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
                         googleMap.moveCamera(cameraUpdate);
