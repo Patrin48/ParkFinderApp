@@ -50,7 +50,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import android.preference.PreferenceActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,7 +59,8 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar = null;
     LocationManager manager;
     Boolean check = false;
-    Boolean auto_finding_check = false;
+    Boolean auto_finding_check;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         auto_finding_check = sharedPref.getBoolean("FindCarAut", false);
+        fragmentTransaction.commit();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -135,27 +135,27 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             toolbar.setTitle("Parking here");
         } else if (id == R.id.nav_myplaces) {
-            if (Global.login_info==null)
-            {
-                Toast.makeText(getApplicationContext(), "Please, login for Favourite Places", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                NewFragment fragment = new NewFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction =
-                        getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
-                toolbar.setTitle("My Places");
-            }
+            NewFragment fragment = new NewFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            toolbar.setTitle("My Places");
         } else if (id == R.id.nav_findmycar) {
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(intent);
-                toolbar.setTitle("Find My Car");
+//            BuildWay fragment = new BuildWay();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
+            Intent SearchIntent = new Intent(getApplicationContext(), MapsActivity.class);
+            startActivity(SearchIntent);
+
+            toolbar.setTitle("Find My Car");
         } else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
-            String shareBodyText = "I'm here, my friend!" + Global.Latitude + " "+ Global.Longitude;
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Position");
+            String shareBodyText = "I'm here!";
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
             startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
         }

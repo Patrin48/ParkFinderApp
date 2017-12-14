@@ -151,9 +151,6 @@ public class NewFragment extends Fragment {
             BufferedWriter bufferedWriter = null;
             BufferedReader bufferedReader = null;
             try {
-                //JSONObject DataToSend = new JSONObject();
-                //DataToSend.put("_name", PName);
-
                 URL url = new URL(urlpath);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setReadTimeout(10000);
@@ -202,12 +199,6 @@ public class NewFragment extends Fragment {
     String[] SaleDescription = new String[count];
     String[] SecretCode = new String[count];
 
-   /*public boolean[] FavouriteBool = {
-            false,
-            false,
-            false,
-            false
-    } ; */
     public NewFragment() {
         // Required empty public constructor
     }

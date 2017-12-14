@@ -54,7 +54,6 @@ public class MainFragment extends Fragment {
     FABToolbarLayout fabToolbar;
     ImageView im1;
     ImageView im2;
-    int count_places=0 ;
     ImageView im3;
     public MainFragment() {
         // Required empty public constructor
@@ -99,6 +98,7 @@ public class MainFragment extends Fragment {
             try {
                 JSONArray jsonarray = new JSONArray(result);
                 count = jsonarray.length();
+                Global.Count_Of_ListItems = count;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -107,6 +107,7 @@ public class MainFragment extends Fragment {
             }
         }
     }
+
     class GetLocations extends AsyncTask<String, Void, String>{
         ProgressDialog progressDialog;
         @Override
@@ -146,12 +147,46 @@ public class MainFragment extends Fragment {
             String out="";
             try {
                 JSONArray jsonarray = new JSONArray(result);
-                count_places = jsonarray.length();
+                count = jsonarray.length();
                 for (int i = 0; i < jsonarray.length(); i++) {
                     JSONObject jsonobject = jsonarray.getJSONObject(i);
                     Global.placesName[i] = jsonobject.getString("PlaceName");
                     Global.width_places[i] = jsonobject.getString("Width");
                     Global.length_places[i] = jsonobject.getString("Lenght");
+                }
+                mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+                if (mSupportMapFragment == null) {
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    mSupportMapFragment = SupportMapFragment.newInstance();
+                    fragmentTransaction.replace(R.id.map, mSupportMapFragment).commit();
+                }
+
+                if (mSupportMapFragment != null) {
+                    mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(GoogleMap googleMap) {
+                            if (googleMap != null) {
+
+                                googleMap.getUiSettings().setAllGesturesEnabled(true);
+                                googleMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(Global.Latitude, Global.Longitude))
+                                        .title("Your car's here!"))
+                                        .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin));
+                                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Longitude)).zoom(14.0f).build();
+                                CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+                                googleMap.moveCamera(cameraUpdate);
+                                for (int i= 0; i<count; i++)
+                                {
+                                    googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(Global.width_places[i]), Double.parseDouble(Global.length_places[i]))).icon(
+                                            BitmapDescriptorFactory.defaultMarker()));
+
+                                }
+                            }
+
+                        }
+                    });
 
                 }
             } catch (JSONException e) {
@@ -162,48 +197,15 @@ public class MainFragment extends Fragment {
             }
         }
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        new Getcount().execute("https://parkfinderapp.herokuapp.com/PlacesList");
         new GetLocations().execute("https://parkfinderapp.herokuapp.com/Location");
+        new Getcount().execute("https://parkfinderapp.herokuapp.com/PlacesList");
         View v =  inflater.inflate(R.layout.fragment_main, container, false);
         fabToolbar = ((FABToolbarLayout) v.findViewById(R.id.fabtoolbar));
-        mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mSupportMapFragment == null) {
-
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            mSupportMapFragment = SupportMapFragment.newInstance();
-            fragmentTransaction.replace(R.id.map, mSupportMapFragment).commit();
-        }
-
-        if (mSupportMapFragment != null) {
-            mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap googleMap) {
-                    if (googleMap != null) {
-
-                        googleMap.getUiSettings().setAllGesturesEnabled(true);
-                        googleMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(Global.Latitude, Global.Longitude))
-                                .title("Your car's here!"))
-                        .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin));
-                        for (int i=0; i<count_places;i++) {
-                                    LatLng place = new LatLng(Double.valueOf(Global.width_places[i]), Double.valueOf(Global.length_places[i]));
-                                googleMap.addMarker(new MarkerOptions().position(place).icon(
-                                    BitmapDescriptorFactory.defaultMarker()));
-                    }
-                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Longitude)).zoom(14.0f).build();
-                        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-                        googleMap.moveCamera(cameraUpdate);
-
-                    }
-
-                }
-            });
-
-        }
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabtoolbar_fab);
 
         im1 = (ImageView) v.findViewById(R.id.one);
