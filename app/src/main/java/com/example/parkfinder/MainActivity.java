@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         auto_finding_check = sharedPref.getBoolean("FindCarAut", false);
-        fragmentTransaction.commit();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

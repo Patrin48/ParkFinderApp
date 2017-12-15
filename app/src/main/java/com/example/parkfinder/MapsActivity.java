@@ -167,6 +167,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Longitude)).zoom(14.0f).build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         mMap.moveCamera(cameraUpdate);
+        MarkerPoints.add(new LatLng(Global.Latitude, Global.Longitude));
+
+
+
+
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
@@ -257,7 +262,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             ArrayList<LatLng> points;
             PolylineOptions lineOptions = null;
 
-            // Traversing through all the routes
             for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<>();
                 lineOptions = new PolylineOptions();
@@ -265,7 +269,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // Fetching i-th route
                 List<HashMap<String, String>> path = result.get(i);
 
-                // Fetching all the points in i-th route
+
                 for (int j = 0; j < path.size(); j++) {
                     HashMap<String, String> point = path.get(j);
 
@@ -276,7 +280,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     points.add(position);
                 }
 
-                // Adding all the points in the route to LineOptions
+
                 lineOptions.addAll(points);
                 lineOptions.width(10);
                 lineOptions.color(Color.BLUE);

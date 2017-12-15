@@ -174,13 +174,32 @@ public class MainFragment extends Fragment {
                                         .position(new LatLng(Global.Latitude, Global.Longitude))
                                         .title("Your car's here!"))
                                         .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin));
-                                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Longitude)).zoom(14.0f).build();
+                                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Global.Latitude, Global.Longitude)).zoom(10.0f).build();
                                 CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
                                 googleMap.moveCamera(cameraUpdate);
                                 for (int i= 0; i<count; i++)
                                 {
-                                    googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(Global.width_places[i]), Double.parseDouble(Global.length_places[i]))).icon(
-                                            BitmapDescriptorFactory.defaultMarker()));
+                                    if (i==0) {
+                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(Global.width_places[i]), Double.parseDouble(Global.length_places[i])))
+                                                .title(Global.placesName[i]+ " See our discount offer."))
+                                                .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_hm));
+                                    }
+                                    if (i==1) {
+                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(Global.width_places[i]), Double.parseDouble(Global.length_places[i])))
+                                                .title(Global.placesName[i]+ " Winter collection!"))
+                                                .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_zara));
+                                    }
+                                    if (i==2) {
+                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(Global.width_places[i]), Double.parseDouble(Global.length_places[i])))
+                                                .title(Global.placesName[i]+" Add to favourite and get the limited burger here!"))
+                                                .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_burger_king));
+                                    }
+
+                                    if (i==3) {
+                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(Global.width_places[i]), Double.parseDouble(Global.length_places[i])))
+                                                .title(Global.placesName[i]+" Use our discount! Only today!"))
+                                                .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_imax));
+                                    }
 
                                 }
                             }
